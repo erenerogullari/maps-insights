@@ -12,7 +12,7 @@ MapInsights is an AI-powered SaaS tool for local business owners to get detailed
 - **Package Manager**: UV (fast, deterministic dependency management)
 - **Web Server**: Uvicorn (ASGI server, async-first)
 - **Data Extraction**: Apify API (Google Maps scraper)
-- **AI Processing**: LangChain + Claude API (structured analysis)
+- **AI Processing**: LangChain + Google Gemini API (structured analysis)
 - **Payments**: Stripe API (webhooks, idempotency)
 - **Database**: PostgreSQL (recommended, not yet integrated)
 - **Logging**: Loguru (structured, async-friendly)
@@ -119,8 +119,8 @@ APIFY_ACTOR_ID=apify/google-maps-scraper
 APIFY_TIMEOUT_SECONDS=300
 
 # LLM / LangChain Configuration
-ANTHROPIC_API_KEY=your_api_key_here
-LLM_MODEL=claude-3-5-sonnet-20241022
+GOOGLE_API_KEY=your_api_key_here
+LLM_MODEL=gemini-2.0-flash
 LANGCHAIN_DEBUG=false
 
 # Stripe Configuration
@@ -297,7 +297,7 @@ uv run mypy app/                # Type checking
 
 ### **Environment**
 - Copy `.env.example` to `.env`
-- Fill in API keys (Apify, Stripe, Anthropic)
+- Fill in API keys (Apify, Stripe, Google)
 - Never commit `.env` to version control
 
 ---
