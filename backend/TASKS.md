@@ -8,7 +8,7 @@
 - [x] Dependencies installed
 - [x] `config.py` created
 - [x] `app/main.py` initialized
-- [ ] Task 1.1
+- [x] Task 1.1
 - [ ] Task 1.2
 - [ ] Task 1.3
 - [ ] Task 1.4
@@ -28,9 +28,9 @@
 - `app/routes/scraper.py` — POST `/scrape` endpoint
 
 ### Subtask 1.1 — Pydantic models (`app/models/scraper.py`)
-- [ ] Define `GoogleMapsUrlInput` with URL field
-- [ ] Define `ScraperResponse` with structured fields: `title`, `rating`, `photos`, `reviews`, `contact`, `hours`, `address`, `website`, `total_reviews`
-- [ ] Add `__init__.py` to `app/models/`
+- [x] Define `ScraperInput` with URL, `max_reviews`, and `include_photos` fields (user-selectable)
+- [x] Define `ScraperResponse` with structured fields: `title`, `rating`, `photos`, `reviews`, `contact`, `hours`, `address`, `website`, `total_reviews`
+- [x] Add `__init__.py` to `app/models/`
 
 ### Subtask 1.2 — URL validator (`app/utils/validators.py`)
 - [ ] Validate Google Maps URL format (handle `maps.google.com`, `goo.gl/maps`, `maps.app.goo.gl` variants)

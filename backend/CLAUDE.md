@@ -60,7 +60,7 @@ backend/
 │   │   └── storage_service.py  # Data persistence (if using DB)
 │   ├── models/
 │   │   ├── __init__.py
-│   │   ├── scraper.py          # GoogleMapsUrlInput, ScraperResponse
+│   │   ├── scraper.py          # ScraperInput, ScraperResponse, ReviewItem, PhotoItem
 │   │   ├── analysis.py         # FeedbackResponse, ScoreCard
 │   │   └── payment.py          # PaymentRequest, PaymentStatus
 │   ├── chains/                 # LangChain chains (Task 2)
@@ -154,8 +154,8 @@ Routes delegate to services; services handle external API calls and business log
 ```python
 # routes/scraper.py
 @router.post("/scrape")
-async def scrape(url: GoogleMapsUrl) -> ScraperResponse:
-    result = await apify_service.scrape_maps(url.url)
+async def scrape(body: ScraperInput) -> ScraperResponse:
+    result = await apify_service.scrape_maps(body)
     return ScraperResponse(**result)
 
 # services/apify_service.py
@@ -255,7 +255,11 @@ Response: {"status": "ok"}
 ### **Scraper (Task 1)**
 ```
 POST /scrape
-Body: {"url": "https://maps.google.com/..."}
+Body: {
+  "url": "https://maps.google.com/...",
+  "max_reviews": 50,          // optional — omit to scrape all reviews
+  "include_photos": true      // optional — defaults to true
+}
 Response: {
   "status": "completed",
   "data": {
