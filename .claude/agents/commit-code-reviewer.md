@@ -14,8 +14,8 @@ Review the code changes introduced in the most recent git commit and provide str
 
 ## Workflow
 
-1. **Retrieve the last commit**: Run `git log -1 --pretty=format:"%H %s"` to identify the latest commit hash and message.
-2. **Inspect the diff**: Run `git diff HEAD~1 HEAD` (or `git show HEAD`) to see all changed files and line-by-line diffs.
+1. **Retrieve context**: Run `git log -1 --pretty=format:"%H %s"` to identify the latest commit (the baseline being compared against).
+2. **Inspect the diff**: Run `git diff HEAD` to see all uncommitted changes (staged and unstaged) since the last commit.
 3. **Read full context if needed**: For complex changes, read the full file using the Read tool to understand surrounding logic.
 4. **Analyze systematically** across the dimensions below.
 5. **Deliver structured feedback** with clear sections, severity labels, and concrete suggestions.
@@ -64,7 +64,7 @@ Review the code changes introduced in the most recent git commit and provide str
 Structure your feedback as follows:
 
 ```
-## Commit Review: [commit hash (short)] — [commit message]
+## Uncommitted Changes Review (since [commit hash (short)] — [commit message])
 
 ### Summary
 Brief overview of what the commit does and overall assessment (1-2 sentences).
