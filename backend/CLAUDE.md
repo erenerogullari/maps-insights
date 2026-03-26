@@ -71,7 +71,7 @@ backend/
 │   │   └── review_chain.py     # Review sentiment & patterns
 │   ├── utils/
 │   │   ├── __init__.py
-│   │   ├── validators.py       # URL validation, input sanitization
+│   │   ├── url_utils.py        # URL validation, input sanitization
 │   │   ├── rate_limit.py       # In-memory rate limiting
 │   │   ├── logger.py           # Loguru configuration
 │   │   └── decorators.py       # Reusable decorators (timing, logging)
@@ -257,7 +257,6 @@ Response: {"status": "ok"}
 POST /scrape
 Body: {
   "url": "https://maps.google.com/...",
-  "max_reviews": 50,          // optional — omit to scrape all reviews
   "include_photos": true      // optional — defaults to true
 }
 Response: {

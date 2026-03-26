@@ -13,6 +13,9 @@ class Settings(BaseSettings):
     apify_actor_id: str = "apify/google-maps-scraper"
     apify_timeout_seconds: int = 300
 
+    # Scraper
+    scraper_max_reviews: int = 50
+
     # LLM
     google_api_key: str
     llm_model: str = "gemini-2.0-flash"

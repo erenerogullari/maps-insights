@@ -23,20 +23,20 @@
 
 **Files to create/modify**:
 - `app/models/scraper.py` — Request/response schemas
-- `app/utils/validators.py` — URL validation
+- `app/utils/url_utils.py` — URL validation
 - `app/services/apify_service.py` — Apify client logic
 - `app/routes/scraper.py` — POST `/scrape` endpoint
 
 ### Subtask 1.1 — Pydantic models (`app/models/scraper.py`)
-- [x] Define `ScraperInput` with URL, `max_reviews`, and `include_photos` fields (user-selectable)
+- [x] Define `ScraperInput` with URL and `include_photos` fields (user-selectable); `max_reviews` handled globally in config
 - [x] Define `ScraperResponse` with structured fields: `title`, `rating`, `photos`, `reviews`, `contact`, `hours`, `address`, `website`, `total_reviews`
 - [x] Add `__init__.py` to `app/models/`
 
-### Subtask 1.2 — URL validator (`app/utils/validators.py`)
-- [ ] Validate Google Maps URL format (handle `maps.google.com`, `goo.gl/maps`, `maps.app.goo.gl` variants)
-- [ ] Sanitize input before passing to Apify
-- [ ] Raise `ValueError` with a clear message on invalid URLs
-- [ ] Add `__init__.py` to `app/utils/`
+### Subtask 1.2 — URL validator (`app/utils/url_utils.py`)
+- [x] Validate Google Maps URL format (handle `maps.google.com`, `goo.gl/maps`, `maps.app.goo.gl` variants)
+- [x] Sanitize input before passing to Apify
+- [x] Raise `ValueError` with a clear message on invalid URLs
+- [x] Add `__init__.py` to `app/utils/`
 
 ### Subtask 1.3 — Apify service (`app/services/apify_service.py`)
 - [ ] Async Apify client using `httpx`
