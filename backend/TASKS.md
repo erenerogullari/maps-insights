@@ -9,8 +9,8 @@
 - [x] `config.py` created
 - [x] `app/main.py` initialized
 - [x] Task 1.1
-- [ ] Task 1.2
-- [ ] Task 1.3
+- [x] Task 1.2
+- [x] Task 1.3
 - [ ] Task 1.4
 
 ---
@@ -39,12 +39,12 @@
 - [x] Add `__init__.py` to `app/utils/`
 
 ### Subtask 1.3 — Apify service (`app/services/apify_service.py`)
-- [ ] Async Apify client using `httpx`
-- [ ] Trigger scraper actor with the Maps URL
-- [ ] Poll job status until `SUCCEEDED` or configurable timeout (default 300s)
-- [ ] Parse and return structured dataset results
-- [ ] Raise descriptive exceptions on failure/timeout
-- [ ] Add `__init__.py` to `app/services/`
+- [x] Async Apify client using `httpx`
+- [x] Trigger scraper actor with the Maps URL
+- [x] Poll job status until `SUCCEEDED` or configurable timeout (default 300s)
+- [x] Parse and return structured dataset results
+- [x] Raise descriptive exceptions on failure/timeout
+- [x] Add `__init__.py` to `app/services/`
 
 ### Subtask 1.4 — Scraper route + wire into `main.py`
 - [ ] `POST /scrape` endpoint in `app/routes/scraper.py`
