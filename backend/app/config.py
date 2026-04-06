@@ -19,6 +19,8 @@ class Settings(BaseSettings):
     # LLM
     google_api_key: str
     llm_model: str = "gemini-2.0-flash"
+    max_output_tokens: int = 1000
+    max_photos_to_review: int = 20
 
     # Stripe
     # stripe_secret_key: str

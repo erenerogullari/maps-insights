@@ -10,7 +10,7 @@ class MediaFeedback(BaseModel):
     photo_count: int = Field(description="Number of photos found")
     feedback: str = Field(description="LLM-generated paragraph about media")
     recommendations: list[str] = Field(
-        description="2-4 concrete action items to improve media presence"
+        description="2-4 concrete action items to improve media presence", min_length=1
     )
 
 
@@ -28,7 +28,8 @@ class InfoFeedback(BaseModel):
         description="LLM-generated paragraph about information completeness"
     )
     recommendations: list[str] = Field(
-        description="2-4 concrete action items to improve information completeness"
+        description="2-4 concrete action items to improve information completeness",
+        min_length=1,
     )
 
 
@@ -44,7 +45,9 @@ class ReviewFeedback(BaseModel):
         description="Whether any owner replies were detected"
     )
     feedback: str = Field(description="LLM-generated paragraph")
-    recommendations: list[str] = Field(description="2-4 concrete action items")
+    recommendations: list[str] = Field(
+        description="2-4 concrete action items", min_length=1
+    )
 
 
 class FeedbackResponse(BaseModel):
@@ -60,7 +63,7 @@ class FeedbackResponse(BaseModel):
     media: MediaFeedback
     info: InfoFeedback
     reviews: ReviewFeedback
-    summary: str = Field(description="2-3 sentence executive summary")
+    summary: str = Field(description="2-3 sentence executive summary", min_length=20)
     generated_at: datetime = Field(
         default_factory=lambda: datetime.now(timezone.utc),
         description="Timestamp of when the feedback was generated",

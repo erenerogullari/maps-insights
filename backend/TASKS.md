@@ -4,9 +4,9 @@
 
 **Phase**: Task 2 — LangChain & AI Feedback Generation
 
-- [ ] Task 2.1 — Install LangChain dependencies
-- [ ] Task 2.2 — Pydantic output models (`app/models/analysis.py`)
-- [ ] Task 2.3 — Media chain
+- [x] Task 2.1 — Install LangChain dependencies
+- [x] Task 2.2 — Pydantic output models (`app/models/analysis.py`)
+- [x] Task 2.3 — Media chain
 - [ ] Task 2.4 — Info chain
 - [ ] Task 2.5 — Review chain
 - [ ] Task 2.6 — Feedback orchestration chain
