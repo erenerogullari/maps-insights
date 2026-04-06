@@ -7,7 +7,7 @@
 - [x] Task 2.1 — Install LangChain dependencies
 - [x] Task 2.2 — Pydantic output models (`app/models/analysis.py`)
 - [x] Task 2.3 — Media chain
-- [ ] Task 2.4 — Info chain
+- [x] Task 2.4 — Info chain
 - [ ] Task 2.5 — Review chain
 - [ ] Task 2.6 — Feedback orchestration chain
 - [ ] Task 2.7 — LangChain service
@@ -28,31 +28,31 @@
 - `app/routes/scraper.py` — POST `/scrape` endpoint
 
 ### Subtask 1.1 — Pydantic models (`app/models/scraper.py`)
-- [x] Define `ScraperInput` with URL and `include_photos` fields (user-selectable); `max_reviews` handled globally in config
-- [x] Define `ScraperResponse` with structured fields: `title`, `rating`, `photos`, `reviews`, `contact`, `hours`, `address`, `website`, `total_reviews`
-- [x] Add `__init__.py` to `app/models/`
+- Define `ScraperInput` with URL and `include_photos` fields (user-selectable); `max_reviews` handled globally in config
+- Define `ScraperResponse` with structured fields: `title`, `rating`, `photos`, `reviews`, `contact`, `hours`, `address`, `website`, `total_reviews`
+- Add `__init__.py` to `app/models/`
 
 ### Subtask 1.2 — URL validator (`app/utils/url_utils.py`)
-- [x] Validate Google Maps URL format (handle `maps.google.com`, `goo.gl/maps`, `maps.app.goo.gl` variants)
-- [x] Sanitize input before passing to Apify
-- [x] Raise `ValueError` with a clear message on invalid URLs
-- [x] Add `__init__.py` to `app/utils/`
+- Validate Google Maps URL format (handle `maps.google.com`, `goo.gl/maps`, `maps.app.goo.gl` variants)
+- Sanitize input before passing to Apify
+- Raise `ValueError` with a clear message on invalid URLs
+- Add `__init__.py` to `app/utils/`
 
 ### Subtask 1.3 — Apify service (`app/services/apify_service.py`)
-- [x] Async Apify client using `httpx`
-- [x] Trigger scraper actor with the Maps URL
-- [x] Poll job status until `SUCCEEDED` or configurable timeout (default 300s)
-- [x] Parse and return structured dataset results
-- [x] Raise descriptive exceptions on failure/timeout
-- [x] Add `__init__.py` to `app/services/`
+- Async Apify client using `httpx`
+- Trigger scraper actor with the Maps URL
+- Poll job status until `SUCCEEDED` or configurable timeout (default 300s)
+- Parse and return structured dataset results
+- Raise descriptive exceptions on failure/timeout
+- Add `__init__.py` to `app/services/`
 
 ### Subtask 1.4 — Scraper route + wire into `main.py`
-- [x] `POST /scrape` endpoint in `app/routes/scraper.py`
-- [x] Delegate to `apify_service.scrape_maps()`
-- [x] Return `ScraperResponse`
-- [x] Add Loguru logging (job start, job complete, errors)
-- [x] Register router in `app/main.py`
-- [x] Add `__init__.py` to `app/routes/`
+- `POST /scrape` endpoint in `app/routes/scraper.py`
+- Delegate to `apify_service.scrape_maps()`
+- Return `ScraperResponse`
+- Add Loguru logging (job start, job complete, errors)
+- Register router in `app/main.py`
+- Add `__init__.py` to `app/routes/`
 
 ---
 
