@@ -4,9 +4,9 @@ description: Current development phase and what has been built so far in the bac
 type: project
 ---
 
-Project is in Task 1 (Apify Integration), actively progressing on branch `backend/web-scraper`.
+Project is now in Task 2 (LangChain Analysis Chains), actively progressing on branch `backend/ai-feedback`.
 
-Completed so far:
+Completed so far (Tasks 1 and 2.2 partial):
 - UV initialized, dependencies installed
 - `config.py` with pydantic-settings
 - `app/main.py` initialized
@@ -17,39 +17,32 @@ Completed so far:
 - URL validation embedded as `@field_validator` inside `ScraperInput` (checks google.com/maps, goo.gl/maps, maps.app.goo.gl)
 - `pyproject.toml` — `[tool.pytest.ini_options] pythonpath = ["."]` and `asyncio_mode = "auto"` added
 - `backend/tests/test_utils/test_url_utils.py` — parametrized unit tests for `sanitize_maps_url`
-
-Completed (Task 1.3):
 - `app/services/apify_service.py` — async httpx client, actor trigger, polling loop, dataset fetch, parses into `ScraperResponse`
 - `app/services/__init__.py` added
-- `tests/test_services/test_apify_service.py` — 6 passing tests covering: success, no photos, FAILED, ABORTED, timeout, empty dataset
-- All known issues from code review resolved:
-  - Import fixed to `from app.config import get_settings`
-  - `import os` removed
-  - `Authorization` header set once on `AsyncClient` (not duplicated per request)
-  - `maxReviews: settings.scraper_max_reviews` passed in actor payload
-  - `timeout=30.0` set on `AsyncClient`
-  - `get_settings()` called inside function body (not at module level)
-  - Response parsed into `ScraperResponse` at service boundary
-  - Empty dataset guard added
-  - Loguru logging added (run triggered, poll status, success, timeout, error)
-  - `str(input.url)` cast added — Pydantic `HttpUrl` is not JSON serializable by default
-
-Completed (Task 1.4) — fully resolved after code review:
-- `app/routes/scraper.py` — POST /scrape endpoint, delegates to scrape_maps(), returns ScraperResponse
-  - Loguru logging at all four points: request received, job start, job complete, errors
-  - HTTPException mapping: TimeoutError→504, RuntimeError→502, ValueError→404, httpx.HTTPStatusError→502
-  - `response_model_exclude_none=True` on decorator (null fields stripped from response)
-  - Route path is `""` (no trailing slash) under `prefix="/scrape"` — canonical path is `POST /scrape`
-  - `str(input.url)` cast used for logging (avoids Pydantic HttpUrl normalization surprises)
-- `app/main.py` — CORSMiddleware wired to `settings.cors_origins`, `GET /health` endpoint added, scraper router registered
-- `app/routes/__init__.py` — empty file created (namespace package convention)
-- `app/services/__init__.py` — re-export pattern removed; routes import directly from `app.services.apify_service`
-- `tests/conftest.py` — sets `APIFY_API_KEY` and `GOOGLE_API_KEY` env vars before app import so `get_settings()` succeeds in tests
-- `tests/test_routes/test_scraper.py` — 5 passing tests: success (200), invalid URL (422), timeout (504), runtime error (502), no data (404)
+- `tests/test_services/test_apify_service.py` — 6 passing tests
+- `app/routes/scraper.py` — POST /scrape endpoint, delegates to scrape_maps()
+- `app/main.py` — CORSMiddleware wired, GET /health, scraper router registered
 - All 21 tests passing across routes, services, and utils
 
+Task 2.2 — Pydantic analysis models added (uncommitted as of 2026-04-06):
+- `app/models/analysis.py` — MediaFeedback, InfoFeedback, ReviewFeedback, FeedbackResponse
+- `app/models/__init__.py` — updated to export new models
+- `pyproject.toml` — langchain, langchain-core, langchain-google-genai added as dependencies
+- `app/chains/` directory does NOT yet exist — chain files are still pending
+- No tests yet for analysis models
+
+Issues identified in Task 2.2:
+- `overall_score` in FeedbackResponse has no `ge=0, le=100` validation constraints (unlike the sub-model scores)
+- `generated_at` in FeedbackResponse is not auto-populated with `default_factory=datetime.now` — consumer must set it
+- No `video_count` field in MediaFeedback, despite CLAUDE.md describing media as "photos, videos"
+- `app/chains/` directory is absent — chains are core to Task 2 but not yet created
+- No corresponding tests for analysis models (no `tests/test_models/` or fixtures)
+
 Still pending:
-- Tasks 2 (LangChain), 3 (Stripe) not yet started
+- Task 2: LangChain chains (media_chain, info_chain, review_chain, feedback_chain)
+- Task 2: langchain_service.py
+- Task 2: analysis route
+- Task 3 (Stripe) not yet started
 
 Architectural decision: `max_reviews` is global config, not user-supplied. Flag as regression if it reappears in `ScraperInput`.
 
