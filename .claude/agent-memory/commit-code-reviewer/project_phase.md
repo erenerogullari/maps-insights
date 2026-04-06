@@ -34,10 +34,21 @@ Completed (Task 1.3):
   - Loguru logging added (run triggered, poll status, success, timeout, error)
   - `str(input.url)` cast added — Pydantic `HttpUrl` is not JSON serializable by default
 
+Completed (Task 1.4) — fully resolved after code review:
+- `app/routes/scraper.py` — POST /scrape endpoint, delegates to scrape_maps(), returns ScraperResponse
+  - Loguru logging at all four points: request received, job start, job complete, errors
+  - HTTPException mapping: TimeoutError→504, RuntimeError→502, ValueError→404, httpx.HTTPStatusError→502
+  - `response_model_exclude_none=True` on decorator (null fields stripped from response)
+  - Route path is `""` (no trailing slash) under `prefix="/scrape"` — canonical path is `POST /scrape`
+  - `str(input.url)` cast used for logging (avoids Pydantic HttpUrl normalization surprises)
+- `app/main.py` — CORSMiddleware wired to `settings.cors_origins`, `GET /health` endpoint added, scraper router registered
+- `app/routes/__init__.py` — empty file created (namespace package convention)
+- `app/services/__init__.py` — re-export pattern removed; routes import directly from `app.services.apify_service`
+- `tests/conftest.py` — sets `APIFY_API_KEY` and `GOOGLE_API_KEY` env vars before app import so `get_settings()` succeeds in tests
+- `tests/test_routes/test_scraper.py` — 5 passing tests: success (200), invalid URL (422), timeout (504), runtime error (502), no data (404)
+- All 21 tests passing across routes, services, and utils
+
 Still pending:
-- Task 1.4: POST `/scrape` route (`app/routes/scraper.py`) + wire into `main.py`
-- Loguru logging in route layer
-- `conftest.py` with shared fixtures
 - Tasks 2 (LangChain), 3 (Stripe) not yet started
 
 Architectural decision: `max_reviews` is global config, not user-supplied. Flag as regression if it reappears in `ScraperInput`.

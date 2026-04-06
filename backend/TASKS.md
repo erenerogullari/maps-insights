@@ -11,7 +11,7 @@
 - [x] Task 1.1
 - [x] Task 1.2
 - [x] Task 1.3
-- [ ] Task 1.4
+- [x] Task 1.4
 
 ---
 
@@ -47,12 +47,12 @@
 - [x] Add `__init__.py` to `app/services/`
 
 ### Subtask 1.4 — Scraper route + wire into `main.py`
-- [ ] `POST /scrape` endpoint in `app/routes/scraper.py`
-- [ ] Delegate to `apify_service.scrape_maps()`
-- [ ] Return `ScraperResponse`
-- [ ] Add Loguru logging (request in, job start, job complete, errors)
-- [ ] Register router in `app/main.py`
-- [ ] Add `__init__.py` to `app/routes/`
+- [x] `POST /scrape` endpoint in `app/routes/scraper.py`
+- [x] Delegate to `apify_service.scrape_maps()`
+- [x] Return `ScraperResponse`
+- [x] Add Loguru logging (job start, job complete, errors)
+- [x] Register router in `app/main.py`
+- [x] Add `__init__.py` to `app/routes/`
 
 ---
 
